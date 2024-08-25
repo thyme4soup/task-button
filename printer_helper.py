@@ -4,6 +4,8 @@ import qrcode
 import os
 
 image_path = "images/out.png"
+# create images folder if it doesn't exist
+os.makedirs("images", exist_ok=True)
 image_width = 384
 
 
@@ -41,6 +43,6 @@ def print_task(task):
     image_path = get_task_as_image(task)
     # print the image
     print(f"Printing {image_path}")
-    command = f"./print.py {image_path} -d GB02 -b none > /dev/null &"
+    command = f"../catprinter/print.py {image_path} -d GB02 -b none > /dev/null &"
     success = os.system(command)
     print(f"Printed {image_path} with success {success}")
