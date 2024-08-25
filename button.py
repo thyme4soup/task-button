@@ -38,12 +38,8 @@ def get_random_task():
 
 if __name__ == "__main__":
     print("running button loop")
-    print(get_random_task())
-
-    while True:
-        if is_button_pressed():
-            print("Button pressed!")
-            task = get_random_task()
-            printer_helper.print_task(task)
-            print(task)
-        time.sleep(1)
+    print("Button pressed!")
+    task = get_random_task()
+    printer_helper.print_task(task)
+    print(task)
+    time.sleep(1)
