@@ -16,12 +16,7 @@ def get_random_task():
     db = notion_helper.get_database_object()
     items = []
     while True:
-        items.extend(
-            [
-                notion_helper.unwrap_notion_prop(result["properties"]["Name"])
-                for result in db["results"]
-            ]
-        )
+        items.extend([result for result in db["results"]])
         if db["has_more"]:
             time.sleep(0.1)
             db = notion_helper.get_database_object(start_cursor=db["next_cursor"])
