@@ -24,10 +24,10 @@ def get_task_as_image(task):
     fontsize = 1
     font_path = os.path.join(cv2.__path__[0], "qt", "fonts", "DejaVuSans.ttf")
     font = ImageFont.truetype(font_path, size=fontsize)
-    while font.getsize(title)[0] < image_width:
+    while font.getsize(title)[0] < image_width - 10:
         fontsize += 1
         font = ImageFont.truetype(font_path, size=fontsize)
-    fontsize -= 1  # decrement just in case
+    fontsize -= 2  # decrement just in case
     font = ImageFont.truetype(font_path, size=fontsize)
 
     draw.text((10, 10), title, fill="black", font=font)
@@ -42,7 +42,7 @@ def get_task_as_image(task):
     qr.add_data(url)
     qr.make(fit=True)
     qr_image = qr.make_image(fill_color="black", back_color="white")
-    image.paste(qr_image, (image_width / 2 - qr_image.size[0] / 2, fontsize + 10))
+    image.paste(qr_image, (image_width // 2 - qr_image.size[0] // 2, fontsize + 10))
 
     # save the image to the image_path
     image.save(image_path)
