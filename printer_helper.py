@@ -19,8 +19,8 @@ def get_task_as_image(task):
     qr = qrcode.QRCode(
         version=1,
         error_correction=qrcode.constants.ERROR_CORRECT_L,
-        box_size=10,
-        border=4,
+        box_size=4,
+        border=2,
     )
     qr.add_data(url)
     qr.make()
@@ -43,7 +43,7 @@ def get_task_as_image(task):
     )
     draw = ImageDraw.Draw(image)
     draw.text((10, 5), title, fill="black", font=font)
-    image.paste(qr_image, (image_width // 2 - qr_image[0] // 2, fontsize + 10))
+    image.paste(qr_image, (image_width // 2 - qr_image.size[0] // 2, fontsize + 10))
 
     # save the image to the image_path
     image.save(image_path)
