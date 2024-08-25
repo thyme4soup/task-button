@@ -1,6 +1,7 @@
 import notion_helper
 from PIL import Image, ImageDraw, ImageFont
 import qrcode
+import cv2
 import os
 
 image_path = "images/out.png"
@@ -21,12 +22,13 @@ def get_task_as_image(task):
 
     # Use the full width of the image for title
     fontsize = 1
-    font = ImageFont.load_default(fontsize)
+    font_path = os.path.join(cv2.__path__[0], "qt", "fonts", "DejaVuSans.ttf")
+    font = ImageFont.truetype(font_path, size=fontsize)
     while font.getsize(title)[0] < image_width:
         fontsize += 1
-        font = ImageFont.load_default(fontsize)
+        font = ImageFont.truetype(font_path, size=fontsize)
     fontsize -= 1  # decrement just in case
-    font = ImageFont.load_default(fontsize)
+    font = ImageFont.truetype(font_path, size=fontsize)
 
     draw.text((10, 10), title, fill="black", font=font)
     # add a QR code of the url
