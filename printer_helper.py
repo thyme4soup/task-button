@@ -23,7 +23,7 @@ def get_task_as_image(task):
         border=4,
     )
     qr.add_data(url)
-    qr.make(fit=True)
+    qr.make()
     qr_image = qr.make_image(fill_color="black", back_color="white")
 
     # Use the full width of the image for title
@@ -43,7 +43,7 @@ def get_task_as_image(task):
     )
     draw = ImageDraw.Draw(image)
     draw.text((10, 5), title, fill="black", font=font)
-    image.paste(qr_image, (0, fontsize + 10))
+    image.paste(qr_image, (image_width // 2 - qr_image[0] // 2, fontsize + 10))
 
     # save the image to the image_path
     image.save(image_path)
