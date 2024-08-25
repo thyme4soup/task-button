@@ -36,5 +36,4 @@ if __name__ == "__main__":
     print("Button pressed!")
     task = get_random_task()
     printer_helper.print_task(task)
-    print(task)
     time.sleep(1)

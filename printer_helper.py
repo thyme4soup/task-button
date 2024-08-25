@@ -15,10 +15,16 @@ def get_task_as_image(task):
     title = notion_helper.unwrap_notion_prop(task["properties"]["Name"])
     url = task["url"]
 
-    # create an image with the title and url
-    # using PIL
-    image = Image.new("RGB", (image_width, 64), (255, 255, 255))
-    draw = ImageDraw.Draw(image)
+    # create a QR code of the url
+    qr = qrcode.QRCode(
+        version=1,
+        error_correction=qrcode.constants.ERROR_CORRECT_L,
+        box_size=10,
+        border=4,
+    )
+    qr.add_data(url)
+    qr.make(fit=True)
+    qr_image = qr.make_image(fill_color="black", back_color="white")
 
     # Use the full width of the image for title
     fontsize = 1
@@ -30,19 +36,14 @@ def get_task_as_image(task):
     fontsize -= 2  # decrement just in case
     font = ImageFont.truetype(font_path, size=fontsize)
 
-    draw.text((10, 10), title, fill="black", font=font)
-    # add a QR code of the url
-    # using the qrcode library
-    qr = qrcode.QRCode(
-        version=1,
-        error_correction=qrcode.constants.ERROR_CORRECT_L,
-        box_size=10,
-        border=4,
+    # create an image with the title and url qr code
+    # using PIL
+    image = Image.new(
+        "RGB", (image_width, qr_image.size[1] + fontsize + 10), (255, 255, 255)
     )
-    qr.add_data(url)
-    qr.make(fit=True)
-    qr_image = qr.make_image(fill_color="black", back_color="white")
-    image.paste(qr_image, (image_width // 2 - qr_image.size[0] // 2, fontsize + 10))
+    draw = ImageDraw.Draw(image)
+    draw.text((10, 5), title, fill="black", font=font)
+    image.paste(qr_image, (0, fontsize + 10))
 
     # save the image to the image_path
     image.save(image_path)
