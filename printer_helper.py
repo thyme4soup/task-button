@@ -14,7 +14,7 @@ image_width = 384
 def switch_printer(power_switch):
     print("Starting printer")
     power_switch.on()
-    time.sleep(1)
+    time.sleep(2)
     power_switch.off()
     time.sleep(1)
 
