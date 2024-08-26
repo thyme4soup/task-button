@@ -67,3 +67,4 @@ def print_task(task):
     command = f"../catprinter/print.py {image_path} -d GB02 -b none -t"
     success = os.system(command)
     print(f"Printed {image_path} with success {success}")
+    return success == 0
