@@ -40,7 +40,7 @@ def glow_led(e):
     x = 0
     print("glowing led")
     while not e.is_set():
-        led.value = math.sin(x / 5) * 0.5 + 0.5
+        led.value = math.sin(x) * 0.5 + 0.5
         time.sleep(0.1)
         x = x + 0.1
     print("stopping led")
