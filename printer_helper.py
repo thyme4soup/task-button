@@ -3,11 +3,20 @@ from PIL import Image, ImageDraw, ImageFont
 import qrcode
 import cv2
 import os
+import time
 
 image_path = "images/out.png"
 # create images folder if it doesn't exist
 os.makedirs("images", exist_ok=True)
 image_width = 384
+
+
+def switch_printer(power_switch):
+    print("Starting printer")
+    power_switch.on()
+    time.sleep(1)
+    power_switch.off()
+    time.sleep(1)
 
 
 # get a task and turn it into an image

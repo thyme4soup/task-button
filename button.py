@@ -2,6 +2,11 @@ import notion_helper
 import printer_helper
 import time
 import random
+from gpiozero import LED, Button
+
+button = Button(4)
+led = LED(2)
+power_switch = LED(17)
 
 
 def is_button_pressed():
@@ -34,6 +39,12 @@ def get_random_task():
 if __name__ == "__main__":
     print("running button loop")
     print("Button pressed!")
-    task = get_random_task()
-    printer_helper.print_task(task)
-    time.sleep(1)
+    while True:
+        led.on()
+        if button.wait_for_press():
+            led.off()
+            printer_helper.switch_printer(power_switch)
+            task = get_random_task()
+            printer_helper.print_task(task)
+            printer_helper.switch_printer(power_switch)
+        time.sleep(1)
