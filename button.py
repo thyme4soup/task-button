@@ -13,7 +13,13 @@ last_button_press = time.gmtime(0)
 
 
 def should_button_flash():
-    # check if we're in productive hours and last button press
+    # check if we're in productive hours (7pm-9pm) and last button press was more than 12 hours ago
+    now = time.localtime()
+    print(now)
+    if now.tm_hour < 19 or now.tm_hour > 21:
+        return False
+    if time.mktime(now) - time.mktime(last_button_press) < 43200:
+        return False
     return True
 
 
@@ -64,5 +70,6 @@ if __name__ == "__main__":
             led.off()
             printer_helper.switch_printer(power_switch)
             task = get_random_task()
-            printer_helper.print_task(task)
+            if printer_helper.print_task(task):
+                last_button_press = time.localtime()
             printer_helper.switch_printer(power_switch)
