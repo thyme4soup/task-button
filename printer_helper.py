@@ -65,6 +65,10 @@ def print_task(task):
     # print the image
     print(f"Printing {image_path}")
     command = f"../catprinter/print.py {image_path} -d GB02 -b none -t"
-    success = os.system(command)
-    print(f"Printed {image_path} with success {success}")
-    return success == 0
+    for i in range(3):
+        if os.system(command):
+            return True
+        else:
+            print("Failed to print")
+    print("Failed to print after 3 attempts")
+    return False
