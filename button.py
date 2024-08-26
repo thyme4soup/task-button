@@ -13,9 +13,8 @@ last_button_press = time.gmtime(0)
 
 
 def should_button_flash():
-    # check if we're in productive hours (7pm-10pm pacific) and last button press was more than 12 hours ago
+    # check if we're in productive hours (7pm-11pm pacific) and last button press was more than 12 hours ago
     now = time.localtime()
-    print(now)
     if now.tm_hour < 3 or now.tm_hour > 6:
         return False
     if time.mktime(now) - time.mktime(last_button_press) < 43200:
