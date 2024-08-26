@@ -47,7 +47,7 @@ if __name__ == "__main__":
     print("running button loop")
     print("Button pressed!")
     e = threading.Event()
-    t = threading.Thread(name="button-light", target=glow_led, args=(e))
+    t = threading.Thread(name="button-light", target=glow_led, args=(e,))
 
     while True:
         if should_button_flash() and not t.is_alive():
