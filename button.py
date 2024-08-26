@@ -38,9 +38,13 @@ def get_random_task():
 
 def glow_led(e):
     x = 0
+    print("glowing led")
     while not e.is_set():
         led.value = max(math.sin(x), 0)
         time.sleep(0.1)
+        x = x + 1
+    print("stopping led")
+    led.value = 0
 
 
 if __name__ == "__main__":
