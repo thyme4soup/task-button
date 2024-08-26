@@ -36,7 +36,7 @@ def get_random_task():
         return None
 
 
-def glow_led():
+def glow_led(e):
     x = 0
     while not e.is_set():
         led.value = max(math.sin(x), 0)
@@ -47,7 +47,7 @@ if __name__ == "__main__":
     print("running button loop")
     print("Button pressed!")
     e = threading.Event()
-    t = threading.Thread(name="button-light", target=glow_led, args=(e, 2))
+    t = threading.Thread(name="button-light", target=glow_led, args=(e))
 
     while True:
         if should_button_flash() and not t.is_alive():
