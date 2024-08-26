@@ -12,11 +12,11 @@ image_width = 384
 
 
 def switch_printer(power_switch):
-    print("Starting printer")
+    print("Toggling printer")
     power_switch.on()
     time.sleep(2)
     power_switch.off()
-    time.sleep(1)
+    time.sleep(5)
 
 
 # get a task and turn it into an image
