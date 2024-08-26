@@ -66,7 +66,7 @@ def print_task(task):
     print(f"Printing {image_path}")
     command = f"../catprinter/print.py {image_path} -d GB02 -b none -t"
     for i in range(3):
-        if os.system(command):
+        if os.system(command) == 0:
             return True
         else:
             print("Failed to print")
