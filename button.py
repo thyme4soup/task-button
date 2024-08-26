@@ -41,8 +41,8 @@ def glow_led(e):
     print("glowing led")
     while not e.is_set():
         led.value = math.sin(x) * 0.5 + 0.5
-        time.sleep(0.1)
-        x = x + 0.1
+        time.sleep(0.01)
+        x = x + 0.01
     print("stopping led")
     led.value = 0
 
@@ -50,14 +50,17 @@ def glow_led(e):
 if __name__ == "__main__":
     print("running button loop")
     print("Button pressed!")
-    e = threading.Event()
-    t = threading.Thread(name="button-light", target=glow_led, args=(e,))
+    e = None
+    t = None
 
     while True:
-        if should_button_flash() and not t.is_alive():
+        if should_button_flash() and not t or not t.is_alive():
+            e = threading.Event()
+            t = threading.Thread(name="button-light", target=glow_led, args=(e,))
             t.start()
         if button.wait_for_press(timeout=5):
-            e.set()
+            if e:
+                e.set()
             led.off()
             printer_helper.switch_printer(power_switch)
             task = get_random_task()
