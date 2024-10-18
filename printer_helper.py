@@ -64,7 +64,7 @@ def print_task(task):
     image_path = get_task_as_image(task)
     # print the image
     print(f"Printing {image_path}")
-    command = f"../catprinter/print.py {image_path} -d GB02 -b none -t"
+    command = f"/home/pi/catprinter/print.py {image_path} -d GB02 -b none -t"
     for i in range(3):
         if os.system(command) == 0:
             return True
