@@ -67,8 +67,11 @@ if __name__ == "__main__":
             if e:
                 e.set()
             led.off()
-            printer_helper.switch_printer(power_switch)
-            task = get_random_task()
-            if printer_helper.print_task(task):
-                last_button_press = time.localtime()
-            printer_helper.switch_printer(power_switch)
+            # try 3 times to print a task, because we don't know what state the printer is in, don't toggle off if it fails
+            for i in range(3):
+                printer_helper.switch_printer(power_switch)
+                task = get_random_task()
+                if printer_helper.print_task(task):
+                    last_button_press = time.localtime()
+                    printer_helper.switch_printer(power_switch)
+                    break
