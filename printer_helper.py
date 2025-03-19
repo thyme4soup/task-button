@@ -59,12 +59,14 @@ def get_task_as_image(task):
     # return the image_path
     return image_path
 
+def get_print_command(image_path):
+    return f"/home/pi/catprinter/print.py {image_path} -d GB02 -b none -t"
 
 def print_task(task):
     image_path = get_task_as_image(task)
     # print the image
     print(f"Printing {image_path}")
-    command = f"/home/pi/catprinter/print.py {image_path} -d GB02 -b none -t"
+    command = get_print_command(image_path)
     for i in range(3):
         if os.system(command) == 0:
             return True
@@ -73,3 +75,19 @@ def print_task(task):
     print("Failed to print after 3 attempts")
     return False
 
+if __name__ == "__main__":
+    # get arg for image path
+    import sys
+    image_path = sys.argv[1]
+
+    # get arg for printer pin
+    printer_pin = sys.argv[2]
+
+    switch_printer(printer_pin)
+    command = get_print_command(image_path)
+    for i in range(3):
+        if os.system(command) == 0:
+            break
+        else:
+            print("Failed to print")
+    switch_printer(printer_pin)
