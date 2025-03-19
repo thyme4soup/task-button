@@ -72,3 +72,4 @@ def print_task(task):
             print("Failed to print")
     print("Failed to print after 3 attempts")
     return False
+
