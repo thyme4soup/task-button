@@ -78,16 +78,16 @@ def print_task(task):
 if __name__ == "__main__":
     # get arg for image path
     import sys
+    from gpiozero import LED
     image_path = sys.argv[1]
 
-    # get arg for printer pin
-    printer_pin = sys.argv[2]
+    power_switch = LED(17)
+    switch_printer(power_switch)
 
-    switch_printer(printer_pin)
     command = get_print_command(image_path)
     for i in range(3):
         if os.system(command) == 0:
             break
         else:
             print("Failed to print")
-    switch_printer(printer_pin)
+    switch_printer(power_switch)
